@@ -9,15 +9,12 @@ const BRICK_OFFSET_Y = 128
 
 var brick_scene = preload("res://scenes/brick.tscn")
 
+var score: int = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	for x in range(COLUMNS):
 		for y in range(ROWS):
 			create_brick(x, y)
-	
-	pass # Replace with function body.
 
 func create_brick(x: int, y: int) -> void:
 	
@@ -28,6 +25,8 @@ func create_brick(x: int, y: int) -> void:
 	add_child(brick)
 	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
+func _on_ball_brick_destroyed(brick: Node2D) -> void:
+	score += 100
+	$ScoreLabel.text = "Score: " + str(score)
+	brick.queue_free()

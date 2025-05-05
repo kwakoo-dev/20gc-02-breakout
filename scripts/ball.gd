@@ -5,9 +5,17 @@ extends CharacterBody2D
 
 const bounce_variance = deg_to_rad(15)
 
+signal brick_destroyed(brick : Node2D)
+
 func _physics_process(delta: float) -> void:
 	var collision_detected = move_and_collide(ball_velocity * delta)
+	
 	if collision_detected:
+		var collider = collision_detected.get_collider()
+		if collider.is_in_group("bricks"):
+			print_debug("collided with brick")
+			brick_destroyed.emit(collider)
+		
 		var extra_angle = get_bounce_angle_variance()
 		ball_velocity = ball_velocity.bounce(collision_detected.get_normal()).rotated(extra_angle)
 
