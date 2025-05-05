@@ -1,21 +1,40 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjir4yauy8s6j"]
+[gd_scene load_steps=5 format=3 uid="uid://bjir4yauy8s6j"]
 
 [ext_resource type="PackedScene" uid="uid://b7ehfh67fbq8p" path="res://scenes/wall.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dcqkddmpftir3" path="res://scenes/ceiling.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://5o5csya85dn5" path="res://scenes/paddle.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://cramy46flw2xm" path="res://scenes/ball.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Wall" parent="." instance=ExtResource("1_uwrxv")]
+collision_layer = 8
+collision_mask = 0
 
 [node name="Wall2" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(672, 0)
+collision_layer = 8
+collision_mask = 0
 
-[node name="Wall3" parent="." instance=ExtResource("2_yqjtg")]
+[node name="Ceiling" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(32, 0)
+collision_layer = 8
+collision_mask = 0
+
+[node name="Ceiling2" parent="." instance=ExtResource("2_yqjtg")]
+position = Vector2(32, 616)
+collision_layer = 8
+collision_mask = 0
 
 [node name="Paddle" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(352, 592)
+position = Vector2(352, 528)
 scale = Vector2(4, 4)
+collision_layer = 2
+collision_mask = 12
 move_left = &"move_left"
 move_right = &"move_right"
+
+[node name="Ball" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(312, 392)
+scale = Vector2(4, 4)
+collision_mask = 14
