@@ -3,18 +3,18 @@
 [ext_resource type="Texture2D" uid="uid://bhfbnscs2pej1" path="res://gfx/breakout_brick.png" id="1_5l4w1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5l4w1"]
-size = Vector2(8, 16)
+size = Vector2(32.0002, 63.9999)
 
 [node name="Brick" type="StaticBody2D" groups=["bricks"]]
-scale = Vector2(4, 4)
 collision_layer = 4
 collision_mask = 0
 
 [node name="BreakoutBrick" type="Sprite2D" parent="."]
-position = Vector2(8, 4)
+position = Vector2(32, 16)
+scale = Vector2(4, 4)
 texture = ExtResource("1_5l4w1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(8, 4)
+position = Vector2(32, 16)
 rotation = 1.5708
 shape = SubResource("RectangleShape2D_5l4w1")
