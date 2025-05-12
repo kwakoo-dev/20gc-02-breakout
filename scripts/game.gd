@@ -2,6 +2,7 @@ extends Node2D
 
 const COLUMNS = 10
 const ROWS = 6
+const INITIAL_BRICK_COUNT = COLUMNS * ROWS
 const BRICK_WIDTH = 64
 const BRICK_HEIGHT = 32
 const BRICK_OFFSET_X = 32
@@ -29,4 +30,13 @@ func create_brick(x: int, y: int) -> void:
 func _on_ball_brick_destroyed(brick: Node2D) -> void:
 	score += 100
 	$ScoreLabel.text = "Score: " + str(score)
+	var ball_speed = get_ball_speed_percent()
+	print_debug("Ball speed changed! " + str(ball_speed))
+	$Ball.set_speed_factor(ball_speed)
 	brick.queue_free()
+
+func get_ball_speed_percent() -> float:
+	var brick_count = get_tree().get_nodes_in_group("bricks").size()
+	# adding one because the bricks are counted BEFORE the brick is deleted
+	# so the brick_count is off by one
+	return (INITIAL_BRICK_COUNT + 1 - float(brick_count)) / INITIAL_BRICK_COUNT
