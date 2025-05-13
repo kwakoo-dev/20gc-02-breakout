@@ -7,25 +7,32 @@ const BRICK_WIDTH = 64
 const BRICK_HEIGHT = 32
 const BRICK_OFFSET_X = 32
 const BRICK_OFFSET_Y = 128
+const INITIAL_LIVES = 3
 
+enum State {
+	STAGE_START,
+	PLAYING
+}
+
+
+var current_state : State = State.STAGE_START
 var brick_scene = preload("res://scenes/brick.tscn")
 
 var score: int = 0
+var lives = INITIAL_LIVES
 
 func _ready() -> void:
+	$StateMachine.initialize($Paddle, $Ball)
 	for x in range(COLUMNS):
 		for y in range(ROWS):
 			create_brick(x, y)
 
 func create_brick(x: int, y: int) -> void:
-	
 	var brick = brick_scene.instantiate()
 	brick.position.x = BRICK_OFFSET_X + BRICK_WIDTH * x
 	brick.position.y = BRICK_OFFSET_Y + BRICK_HEIGHT * y
-	
 	add_child(brick)
 	pass
-
 
 func _on_ball_brick_destroyed(brick: Node2D) -> void:
 	score += 100
@@ -40,3 +47,9 @@ func get_ball_speed_percent() -> float:
 	# adding one because the bricks are counted BEFORE the brick is deleted
 	# so the brick_count is off by one
 	return (INITIAL_BRICK_COUNT + 1 - float(brick_count)) / INITIAL_BRICK_COUNT
+
+func _physics_process(delta: float) -> void:
+	$StateMachine.physics_process(delta)
+	
+func _input(event: InputEvent) -> void:
+	$StateMachine.input_process(event)

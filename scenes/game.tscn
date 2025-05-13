@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bjir4yauy8s6j"]
+[gd_scene load_steps=9 format=3 uid="uid://bjir4yauy8s6j"]
 
 [ext_resource type="Script" uid="uid://tljmurysr63g" path="res://scripts/game.gd" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://b7ehfh67fbq8p" path="res://scenes/wall.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dcqkddmpftir3" path="res://scenes/ceiling.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://5o5csya85dn5" path="res://scenes/paddle.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://cramy46flw2xm" path="res://scenes/ball.tscn" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://s6i0yilaniri" path="res://scripts/game_states/state_machine.gd" id="6_gee14"]
+[ext_resource type="Script" uid="uid://rrvpoe1337bx" path="res://scripts/game_states/stage_start.gd" id="7_u5sy4"]
+[ext_resource type="Script" uid="uid://ql3fhgya6des" path="res://scripts/game_states/playing_state.gd" id="9_0tnpc"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_iywne")
@@ -33,8 +36,9 @@ position = Vector2(32, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Ceiling2" parent="borders" instance=ExtResource("2_yqjtg")]
-position = Vector2(32, 616)
+[node name="Floor" parent="borders" groups=["death_zone"] instance=ExtResource("2_yqjtg")]
+position = Vector2(-1136, 704)
+scale = Vector2(3.97489, 8.85916)
 collision_layer = 8
 collision_mask = 0
 
@@ -46,4 +50,25 @@ offset_bottom = 380.0
 theme_override_font_sizes/font_size = 66
 text = "Score: 0"
 
+[node name="Label" type="Label" parent="."]
+offset_left = 720.0
+offset_top = 400.0
+offset_right = 953.0
+offset_bottom = 491.0
+theme_override_font_sizes/font_size = 66
+text = "Lives: 3"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("6_gee14")
+
+[node name="StageStart" type="Node" parent="StateMachine"]
+script = ExtResource("7_u5sy4")
+metadata/_custom_type_script = "uid://caxucj1i4vhxm"
+
+[node name="PlayingState" type="Node" parent="StateMachine"]
+script = ExtResource("9_0tnpc")
+metadata/_custom_type_script = "uid://caxucj1i4vhxm"
+
 [connection signal="brick_destroyed" from="Ball" to="." method="_on_ball_brick_destroyed"]
+[connection signal="finished" from="StateMachine/StageStart" to="StateMachine" method="_on_state_finished"]
+[connection signal="finished" from="StateMachine/PlayingState" to="StateMachine" method="_on_state_finished"]

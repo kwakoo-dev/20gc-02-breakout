@@ -1,17 +1,29 @@
 extends CharacterBody2D
-
-const min_speed = 300
-const max_speed = 1000
-
-@export var ball_direction = Vector2(150, 150).normalized()
-var ball_speed = min_speed
-@export var bounce_randomness = 10
-
-const bounce_variance = deg_to_rad(15)
+class_name Ball
 
 signal brick_destroyed(brick : Node2D)
 
+const min_speed = 300
+const max_speed = 1000
+const bounce_variance = deg_to_rad(15)
+
+enum State {
+	STOPPED,
+	MOVING
+}
+
+@export var ball_direction = Vector2(150, 150).normalized()
+@export var bounce_randomness = 10
+var ball_speed = min_speed
+
+var current_state = State.STOPPED
+
+
+
 func _physics_process(delta: float) -> void:
+	if current_state == State.STOPPED:
+		return
+	
 	var collision_detected = move_and_collide(ball_direction * delta * ball_speed)
 	
 	if collision_detected:
@@ -24,8 +36,8 @@ func _physics_process(delta: float) -> void:
 
 func get_bounce_angle_variance() -> float:
 	if randi_range(0, 100) < bounce_randomness:
-		var sign : int = get_random_sign()
-		var angle : float = sign * bounce_variance
+		var angle_sign : int = get_random_sign()
+		var angle : float = angle_sign * bounce_variance
 		print_debug("Changed the angle by: " + str(angle))
 		return angle
 	else:
