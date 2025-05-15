@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0ar1njmb42b7"]
+
+[ext_resource type="Script" uid="uid://dtdbu6ivdwu33" path="res://scripts/start_screen.gd" id="1_tx5wa"]
+
+[sub_resource type="SystemFont" id="SystemFont_cllq7"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_cllq7"]
+action = &"start"
+
+[sub_resource type="Shortcut" id="Shortcut_tx5wa"]
+events = [SubResource("InputEventAction_cllq7")]
+
+[node name="StartScreen" type="Node2D"]
+script = ExtResource("1_tx5wa")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.696517, 0.493435, 0.294843, 1)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 1121.0
+offset_bottom = 312.0
+theme_override_fonts/font = SubResource("SystemFont_cllq7")
+theme_override_font_sizes/font_size = 126
+text = "Brick Destruction!"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 360.0
+offset_top = 320.0
+offset_right = 793.0
+offset_bottom = 550.0
+theme_override_font_sizes/font_size = 162
+shortcut = SubResource("Shortcut_tx5wa")
+text = "Start!"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

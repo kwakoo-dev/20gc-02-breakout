@@ -1,42 +1,42 @@
 [gd_scene load_steps=9 format=3 uid="uid://bjir4yauy8s6j"]
 
-[ext_resource type="Script" uid="uid://tljmurysr63g" path="res://scripts/game.gd" id="1_iywne"]
-[ext_resource type="PackedScene" uid="uid://b7ehfh67fbq8p" path="res://scenes/wall.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://dcqkddmpftir3" path="res://scenes/ceiling.tscn" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://5o5csya85dn5" path="res://scenes/paddle.tscn" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://cramy46flw2xm" path="res://scenes/ball.tscn" id="4_lbhrr"]
-[ext_resource type="Script" uid="uid://s6i0yilaniri" path="res://scripts/game_states/state_machine.gd" id="6_gee14"]
-[ext_resource type="Script" uid="uid://rrvpoe1337bx" path="res://scripts/game_states/stage_start.gd" id="7_u5sy4"]
-[ext_resource type="Script" uid="uid://ql3fhgya6des" path="res://scripts/game_states/playing_state.gd" id="9_0tnpc"]
+[ext_resource type="Script" uid="uid://tljmurysr63g" path="res://scripts/level.gd" id="1_b121j"]
+[ext_resource type="PackedScene" uid="uid://5o5csya85dn5" path="res://scenes/paddle.tscn" id="2_8c41q"]
+[ext_resource type="PackedScene" uid="uid://cramy46flw2xm" path="res://scenes/ball.tscn" id="3_olg7q"]
+[ext_resource type="PackedScene" uid="uid://b7ehfh67fbq8p" path="res://scenes/wall.tscn" id="4_t1rx8"]
+[ext_resource type="PackedScene" uid="uid://dcqkddmpftir3" path="res://scenes/ceiling.tscn" id="5_8iemx"]
+[ext_resource type="Script" uid="uid://s6i0yilaniri" path="res://scripts/game_states/state_machine.gd" id="6_64w2a"]
+[ext_resource type="Script" uid="uid://rrvpoe1337bx" path="res://scripts/game_states/stage_start.gd" id="7_fpun6"]
+[ext_resource type="Script" uid="uid://ql3fhgya6des" path="res://scripts/game_states/playing_state.gd" id="8_wc255"]
 
-[node name="Game" type="Node2D"]
-script = ExtResource("1_iywne")
+[node name="Level" type="Node2D"]
+script = ExtResource("1_b121j")
 
-[node name="Paddle" parent="." instance=ExtResource("3_lnu2h")]
+[node name="Paddle" parent="." instance=ExtResource("2_8c41q")]
 position = Vector2(344, 592)
 move_left = &"move_left"
 move_right = &"move_right"
 
-[node name="Ball" parent="." instance=ExtResource("4_lbhrr")]
+[node name="Ball" parent="." instance=ExtResource("3_olg7q")]
 position = Vector2(312, 392)
 
 [node name="borders" type="Node" parent="."]
 
-[node name="Wall" parent="borders" instance=ExtResource("1_uwrxv")]
+[node name="Wall" parent="borders" instance=ExtResource("4_t1rx8")]
 collision_layer = 8
 collision_mask = 0
 
-[node name="Wall2" parent="borders" instance=ExtResource("1_uwrxv")]
+[node name="Wall2" parent="borders" instance=ExtResource("4_t1rx8")]
 position = Vector2(672, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Ceiling" parent="borders" instance=ExtResource("2_yqjtg")]
+[node name="Ceiling" parent="borders" instance=ExtResource("5_8iemx")]
 position = Vector2(32, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Floor" parent="borders" groups=["death_zone"] instance=ExtResource("2_yqjtg")]
+[node name="Floor" parent="borders" groups=["death_zone"] instance=ExtResource("5_8iemx")]
 position = Vector2(-1040, 696)
 scale = Vector2(3.97489, 8.85916)
 collision_layer = 8
@@ -59,14 +59,14 @@ theme_override_font_sizes/font_size = 66
 text = "Lives: 3"
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("6_gee14")
+script = ExtResource("6_64w2a")
 
 [node name="StageStart" type="Node" parent="StateMachine"]
-script = ExtResource("7_u5sy4")
+script = ExtResource("7_fpun6")
 metadata/_custom_type_script = "uid://caxucj1i4vhxm"
 
 [node name="PlayingState" type="Node" parent="StateMachine"]
-script = ExtResource("9_0tnpc")
+script = ExtResource("8_wc255")
 metadata/_custom_type_script = "uid://caxucj1i4vhxm"
 
 [connection signal="brick_destroyed" from="Ball" to="." method="_on_ball_brick_destroyed"]

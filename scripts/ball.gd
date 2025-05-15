@@ -13,16 +13,17 @@ enum State {
 	MOVING
 }
 
-@export var ball_direction = Vector2(150, 150).normalized()
-@export var bounce_randomness = 10
+
+var _default_ball_direction = Vector2(150, -150).normalized()
+var ball_direction = _default_ball_direction
+var bounce_randomness = 10
 var ball_speed = min_speed
 
 var current_state = State.STOPPED
 
-
-
 func _physics_process(delta: float) -> void:
 	if current_state == State.STOPPED:
+		ball_direction = _default_ball_direction
 		return
 	
 	var collision_detected = move_and_collide(ball_direction * delta * ball_speed)

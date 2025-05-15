@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="02_breakout"
-run/main_scene="uid://bjir4yauy8s6j"
+run/main_scene="uid://c0ar1njmb42b7"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Globals="*res://scripts/globals.gd"
 
 [global_group]
 

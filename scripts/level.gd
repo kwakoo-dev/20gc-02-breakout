@@ -7,7 +7,7 @@ const BRICK_WIDTH = 64
 const BRICK_HEIGHT = 32
 const BRICK_OFFSET_X = 32
 const BRICK_OFFSET_Y = 128
-const INITIAL_LIVES = 3
+
 
 enum State {
 	STAGE_START,
@@ -17,10 +17,8 @@ enum State {
 var current_state : State = State.STAGE_START
 var brick_scene = preload("res://scenes/brick.tscn")
 
-var score: int = 0
-var lives = INITIAL_LIVES
-
 func _ready() -> void:
+	Globals
 	$StateMachine.initialize($Paddle, $Ball)
 	for x in range(COLUMNS):
 		for y in range(ROWS):
@@ -35,7 +33,6 @@ func create_brick(x: int, y: int) -> void:
 
 func _on_ball_brick_destroyed(brick: Node2D) -> void:
 	add_score(100)
-	$ScoreLabel.text = "Score: " + str(score)
 	var ball_speed = get_ball_speed_percent()
 	print_debug("Ball speed changed! " + str(ball_speed))
 	$Ball.set_speed_factor(ball_speed)
@@ -54,24 +51,26 @@ func _input(event: InputEvent) -> void:
 	$StateMachine.input_process(event)
 
 func add_score(score_to_add : int) -> void:
-	score += score_to_add
+	Globals.score += score_to_add
 	update_score_gui()
-	
+
 func set_score(score_to_set : int) -> void:
-	score = score_to_set
+	Globals.score = score_to_set
 	update_score_gui()
 
 func update_score_gui() -> void:
-	$ScoreLabel.text = "Score: " + str(score)
+	$ScoreLabel.text = "Score: " + str(Globals.score)
 
 func decrease_lives() -> void:
-	lives -= 1
+	Globals.lives -= 1
 	update_lives_gui()
 
 func update_lives_gui() -> void:
-	$LivesLabel.text = "Lives: " + str(lives)
+	$LivesLabel.text = "Lives: " + str(Globals.lives)
 
 func _on_ball_death() -> void:
 	decrease_lives()
+	if Globals.lives <= 0:
+		get_tree().change_scene_to_file("res://scenes/game_over.tscn")
 	$StateMachine.switch_to_state("start")
 	# todo: play death sound
