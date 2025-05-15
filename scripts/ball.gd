@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Ball
 
 signal brick_destroyed(brick : Node2D)
+signal death
 
 const min_speed = 300
 const max_speed = 1000
@@ -30,6 +31,8 @@ func _physics_process(delta: float) -> void:
 		var collider = collision_detected.get_collider()
 		if collider.is_in_group("bricks"):
 			brick_destroyed.emit(collider)
+		if collider.is_in_group("death_zone"):
+			death.emit()
 		
 		var extra_angle = get_bounce_angle_variance()
 		ball_direction = ball_direction.bounce(collision_detected.get_normal()).rotated(extra_angle)

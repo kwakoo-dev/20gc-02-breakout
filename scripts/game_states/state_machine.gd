@@ -18,6 +18,9 @@ func input_process(event: InputEvent) -> void:
 	_current_state.input_process(event)
 
 func _on_state_finished(next_state: String) -> void:
+	switch_to_state(next_state)
+
+func switch_to_state(next_state: String) -> void:
 	var new_state = _states[next_state]
 	if new_state:
 		print_debug("Switching to state: " + next_state)

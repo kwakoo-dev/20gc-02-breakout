@@ -14,7 +14,6 @@ enum State {
 	PLAYING
 }
 
-
 var current_state : State = State.STAGE_START
 var brick_scene = preload("res://scenes/brick.tscn")
 
@@ -35,7 +34,7 @@ func create_brick(x: int, y: int) -> void:
 	pass
 
 func _on_ball_brick_destroyed(brick: Node2D) -> void:
-	score += 100
+	add_score(100)
 	$ScoreLabel.text = "Score: " + str(score)
 	var ball_speed = get_ball_speed_percent()
 	print_debug("Ball speed changed! " + str(ball_speed))
@@ -53,3 +52,26 @@ func _physics_process(delta: float) -> void:
 	
 func _input(event: InputEvent) -> void:
 	$StateMachine.input_process(event)
+
+func add_score(score_to_add : int) -> void:
+	score += score_to_add
+	update_score_gui()
+	
+func set_score(score_to_set : int) -> void:
+	score = score_to_set
+	update_score_gui()
+
+func update_score_gui() -> void:
+	$ScoreLabel.text = "Score: " + str(score)
+
+func decrease_lives() -> void:
+	lives -= 1
+	update_lives_gui()
+
+func update_lives_gui() -> void:
+	$LivesLabel.text = "Lives: " + str(lives)
+
+func _on_ball_death() -> void:
+	decrease_lives()
+	$StateMachine.switch_to_state("start")
+	# todo: play death sound
