@@ -18,7 +18,6 @@ var current_state : State = State.STAGE_START
 var brick_scene = preload("res://scenes/brick.tscn")
 
 func _ready() -> void:
-	Globals
 	$StateMachine.initialize($Paddle, $Ball)
 	for x in range(COLUMNS):
 		for y in range(ROWS):
@@ -29,13 +28,13 @@ func create_brick(x: int, y: int) -> void:
 	brick.position.x = BRICK_OFFSET_X + BRICK_WIDTH * x
 	brick.position.y = BRICK_OFFSET_Y + BRICK_HEIGHT * y
 	add_child(brick)
-	pass
 
 func _on_ball_brick_destroyed(brick: Node2D) -> void:
 	add_score(100)
 	var ball_speed = get_ball_speed_percent()
 	print_debug("Ball speed changed! " + str(ball_speed))
 	$Ball.set_speed_factor(ball_speed)
+	GlobalAudio.playBrickDestroy()
 	brick.queue_free()
 
 func get_ball_speed_percent() -> float:

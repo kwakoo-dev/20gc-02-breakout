@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://ixgolly0so4m"]
+
+[ext_resource type="Script" uid="uid://dirvomvu6evrr" path="res://scripts/global_audio.gd" id="1_tbad1"]
+[ext_resource type="AudioStream" uid="uid://b30twu4xgbl23" path="res://sfx/impactGeneric_light_000.ogg" id="2_r5uck"]
+[ext_resource type="AudioStream" uid="uid://6pu3n3su2q8r" path="res://sfx/impactGeneric_light_001.ogg" id="3_hhoab"]
+[ext_resource type="AudioStream" uid="uid://b1imp66oa43ii" path="res://sfx/impactGeneric_light_002.ogg" id="4_3v0ci"]
+[ext_resource type="AudioStream" uid="uid://cpiwc6apfr3wd" path="res://sfx/impactGeneric_light_003.ogg" id="5_wbanv"]
+[ext_resource type="AudioStream" uid="uid://cqolw57dt6r4m" path="res://sfx/impactGeneric_light_004.ogg" id="6_o8r8g"]
+
+[node name="GlobalAudio" type="Node"]
+script = ExtResource("1_tbad1")
+
+[node name="BrickDestroySound1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_r5uck")
+bus = &"sounds"
+
+[node name="BrickDestroySound2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_wbanv")
+
+[node name="BrickDestroySound3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_o8r8g")
+
+[node name="WallBounce" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_hhoab")
+bus = &"sounds"
+
+[node name="PaddleBounce" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_3v0ci")
+bus = &"sounds"

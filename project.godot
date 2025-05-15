@@ -18,11 +18,14 @@ config/icon="res://icon.svg"
 [autoload]
 
 Globals="*res://scripts/globals.gd"
+GlobalAudio="*res://scenes/global_audio.tscn"
 
 [global_group]
 
 bricks=""
 death_zone=""
+walls=""
+paddles=""
 
 [input]
 

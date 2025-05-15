@@ -22,16 +22,16 @@ position = Vector2(312, 392)
 
 [node name="borders" type="Node" parent="."]
 
-[node name="Wall" parent="borders" instance=ExtResource("4_t1rx8")]
+[node name="Wall" parent="borders" groups=["walls"] instance=ExtResource("4_t1rx8")]
 collision_layer = 8
 collision_mask = 0
 
-[node name="Wall2" parent="borders" instance=ExtResource("4_t1rx8")]
+[node name="Wall2" parent="borders" groups=["walls"] instance=ExtResource("4_t1rx8")]
 position = Vector2(672, 0)
 collision_layer = 8
 collision_mask = 0
 
-[node name="Ceiling" parent="borders" instance=ExtResource("5_8iemx")]
+[node name="Ceiling" parent="borders" groups=["walls"] instance=ExtResource("5_8iemx")]
 position = Vector2(32, 0)
 collision_layer = 8
 collision_mask = 0

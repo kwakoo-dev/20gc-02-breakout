@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dxm7suklchu0" path="res://gfx/breakout_paddle.png" id="1_3xiby"]
 [ext_resource type="Script" uid="uid://bf7yavc41ayiy" path="res://scripts/paddle.gd" id="1_y7wee"]
 
-[node name="Paddle" type="CharacterBody2D"]
+[node name="Paddle" type="CharacterBody2D" groups=["paddles"]]
 collision_layer = 2
 collision_mask = 12
 script = ExtResource("1_y7wee")
@@ -12,5 +12,5 @@ script = ExtResource("1_y7wee")
 scale = Vector2(4, 4)
 texture = ExtResource("1_3xiby")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." groups=["paddles"]]
 polygon = PackedVector2Array(-64, -8, -33, -16, 32, -16, 64, -8, 64, 16, -64, 16)

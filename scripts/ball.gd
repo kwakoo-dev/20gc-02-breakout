@@ -3,6 +3,7 @@ class_name Ball
 
 signal brick_destroyed(brick : Node2D)
 signal death
+signal wall_bounce
 
 const min_speed = 300
 const max_speed = 1000
@@ -34,6 +35,10 @@ func _physics_process(delta: float) -> void:
 			brick_destroyed.emit(collider)
 		if collider.is_in_group("death_zone"):
 			death.emit()
+		if collider.is_in_group("walls"):
+			GlobalAudio.playWallBounce()
+		if collider.is_in_group("paddles"):
+			GlobalAudio.playPaddleBounce()
 		
 		var extra_angle = get_bounce_angle_variance()
 		ball_direction = ball_direction.bounce(collision_detected.get_normal()).rotated(extra_angle)
