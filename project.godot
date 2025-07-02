@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="02_breakout"
+config/name="Brick Destroyer"
 run/main_scene="uid://c0ar1njmb42b7"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
